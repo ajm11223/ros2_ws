@@ -68,3 +68,33 @@ source install/setup.bash
 # 시뮬레이션 실행 (factory map)
 bash src/yahboom_rosmaster/yahboom_rosmaster_bringup/scripts/rosmaster_x3_gazebo_2.sh
 ```
+
+---
+
+## 권장 ~/.bashrc 설정
+
+아래를 `~/.bashrc` 하단에 추가한다. `# ← 변경` 표시된 항목은 본인 환경에 맞게 수정.
+
+```bash
+# ── Aliases ────────────────────────────────────────────────
+alias sb="source ~/.bashrc; echo \"bashrc is reloaded\""
+alias ros_domain="export ROS_DOMAIN_ID=13; echo \"ROS_DOMAIN_ID=13\""          # ← 변경: ROS_DOMAIN_ID
+alias jazzy="source /opt/ros/jazzy/setup.bash; export ROS_DOMAIN_ID=13; echo \"Ros2 Jazzy is activated (DOMAIN_ID=13)!\""  # ← 변경: ROS_DOMAIN_ID
+alias sisb="source ~/ajm_ws/install/setup.bash; echo \"Local workspace activated!\""           # ← 변경: 워크스페이스 경로
+alias build="cd ~/ajm_ws && colcon build && source ~/ajm_ws/install/setup.bash; echo \"Build & Source completed!\""        # ← 변경: 워크스페이스 경로
+alias x3="bash ~/ajm_ws/src/yahboom_rosmaster/yahboom_rosmaster_bringup/scripts/rosmaster_x3_gazebo_2.sh"                  # ← 변경: 워크스페이스 경로
+alias xslam="bash ~/ajm_ws/src/yahboom_rosmaster/yahboom_rosmaster_bringup/scripts/rosmaster_x3_gazebo_slam.sh"            # ← 변경: 워크스페이스 경로
+alias bc="code ~/.bashrc"
+alias yahboom='ros2 launch urdf_tutorial display.launch.py model:=/home/smoc/ajm_ws/src/yahboom_rosmaster/yahboom_rosmaster_description/urdf/robots/rosmaster_x3.urdf.xacro'  # ← 변경: /home/smoc → 본인 홈 디렉토리
+
+# ── ROS 2 auto-source ──────────────────────────────────────
+source /opt/ros/jazzy/setup.bash
+echo "ROS2 activated"
+echo "ROS_DOMAIN_ID=13"                                                          # ← 변경: ROS_DOMAIN_ID
+[ -f ~/ajm_ws/install/setup.bash ] && source ~/ajm_ws/install/setup.bash        # ← 변경: 워크스페이스 경로
+echo "sourcing done, ajm_ws/install/setup.bash"
+
+export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+export PATH="$HOME/.local/bin:$PATH"
+export PYTHONPATH="/opt/ros/jazzy/opt/gz_msgs_vendor/lib/python:$PYTHONPATH"
+```
